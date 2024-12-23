@@ -1,0 +1,35 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}ورود{% endblock %}
+
+{% block body %}
+    <div class="container style" id="style">
+        <div class="form-container sign-in-container style">
+            <form method="post" action="{% url 'login_page' %}" id="style1">
+                <h1 id="style2">ورود</h1>
+                {% csrf_token %}
+
+                {{ login_form.phone_number }}
+                {{ login_form.phone_number.errors }}
+
+                {{ login_form.password }}
+                {{ login_form.password.errors }}
+
+                {{ login_form.captcha }}
+                {{ login_form.captcha.errors }}
+
+                <a href="" id="style4">رمز عبور خود را فراموش کرده اید؟</a>
+                <button type="submit" class="go">ورود</button>
+            </form>
+        </div>
+        <div class="overlay-container style">
+            <div class="overlay style">
+                <div class="overlay-panel overlay-right style">
+                    <h1 id="style2">!خوش آمدید</h1>
+                    <p id="style5">با وارد کردن اطلاعات می توانید به صفحه ی خود ورود کنید</p>
+                    <a href="{% url 'register_page' %}" id="style6">در صورت نداشتن حساب کاربری ثبت نام کنید</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

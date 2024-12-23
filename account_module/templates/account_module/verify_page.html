@@ -1,0 +1,15 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}اعتبارسنجی{% endblock %}
+
+{% block body %}
+        <form method="post" action="{% url 'verify_page' %}" id="style1"><br>
+            <h1 id="style2">اعتبارسنجی کد</h1><br>
+            {% csrf_token %}
+
+            {{ form.code }}
+            {{ form.errors }}
+
+            <button type="submit" class="go">ارسال</button><br>
+        </form>
+{% endblock %}
