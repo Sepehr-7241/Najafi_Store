@@ -1,0 +1,101 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}سوغات سرای نجفی{% endblock %}
+
+{% block body %}
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for slider in sliders %}
+            	<li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" {% if forloop.first %} class="active" {% endif %}></li>
+            {% endfor %}
+
+        </ol>
+        <div class="carousel-inner">
+
+            {% if sliders %}
+                {% for slider in sliders %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="container">
+                            <div class="row p-5">
+                                <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                                    <img class="img-fluid slider-img-size" src="{{ slider.image.url }}"
+                                         alt="سوغات سرای نجفی">
+                                </div>
+                                <div class="col-lg-6 mb-0 d-flex align-items-center">
+                                    <div class="text-align-left align-self-center">
+                                        <h1 class="h1 text-success" dir="rtl">{{ slider.title }}</h1>
+                                        <p class="font" dir="rtl">{{ slider.description|safe }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+        {% if sliders %}
+            <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel"
+               role="button" data-bs-slide="prev">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel"
+               role="button" data-bs-slide="next">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        {% endif %}
+    </div>
+
+    <section class="container py-5">
+        <div class="row text-center pt-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">پرفروش ترین دسته بندی ها</h1>
+                <p class="font">پرفروش ترین دسته بندی های که مورد رضایت خریداران قرار گرفته است</p>
+            </div>
+        </div>
+        <div class="row">
+
+            {% for best_selling_product in best_selling_products %}
+                <div class="col-12 col-md-4 p-5 mt-3">
+                    <a href="{{ best_selling_product.url }}"><img src="{{ best_selling_product.image.url }}"
+                                                                  class="rounded-circle img-fluid border category-img-size"
+                                                                  alt="سوغات سرای نجفی"></a>
+                    <h5 class="text-center mt-3 mb-3">{{ best_selling_product.title }}</h5>
+                    <p class="text-center"><a class="btn btn-success" href="{{ best_selling_product.url }}">مشاهده
+                        محصولات</a></p>
+                </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">محصولات پیشنهادی</h1>
+                    <p class="font">محصولاتی که به شما پیشنهاد می کنیم آن ها را مشاهده کنید</p>
+                </div>
+            </div>
+            <div class="row">
+
+                {% for suggested_product in suggested_products %}
+                    <div class="col-12 col-md-4 mb-4">
+                        <div class="card h-100">
+                            <a href="{{ suggested_product.url }}">
+                                <img src="{{ suggested_product.image.url }}" class="card-img-top"
+                                     alt="سوغات سرای نجفی">
+                            </a>
+                            <div class="card-body" dir="rtl">
+                                <a href="{{ suggested_product.url }}"
+                                   class="h2 text-decoration-none text-dark">{{ suggested_product.title }}</a>
+                                <p class="card-text font">{{ suggested_product.description|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

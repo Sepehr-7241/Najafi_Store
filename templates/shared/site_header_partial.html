@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+    <div class="container text-light">
+        <div class="w-100 d-flex justify-content-between">
+            <div>
+                <i class="fa fa-envelope mx-2"></i>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:soghatsaranajafi@gmail.com">soghatsaranajafi@gmail.com</a>
+                <i class="fa fa-phone mx-2"></i>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="tel:01342134680">01342134680</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <p class="navbar-brand text-success h2 logo align-self-center">سوغات سرای نجفی</p>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+             id="templatemo_main_nav">
+            <div class="flex-fill">
+                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <li class="nav-item" id="nav-bar">
+                        <a class="nav-link" href="{% url 'contact_us_page' %}">تماس با ما</a>
+                    </li>
+                    <li class="nav-item" id="nav-bar">
+                        <a class="nav-link" href="{% url 'about_us_page' %}">درباره ی ما</a>
+                    </li>
+                    <li class="nav-item" id="nav-bar">
+                        <a class="nav-link" href="{% url 'product_page' %}">محصولات</a>
+                    </li>
+                    <li class="nav-item" id="nav-bar">
+                        <a class="nav-link" href="{% url 'home_page' %}">صفحه ی اصلی</a>
+                    </li>
+                </ul>
+            </div>
+        
+        
+            <div class="navbar align-self-center d-flex">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                        <a class="nav-icon position-relative text-decoration-none" href="/admin">
+                        <i class="bi bi-person-fill"></i>
+                    {% endif %}
+
+                    <a class="nav-icon position-relative text-decoration-none" href="{% url 'cart_page' %}">
+                        <i class="bi bi-basket3-fill"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ cart|length }}</span>
+                    </a>
+
+                    <a class="nav-icon position-relative text-decoration-none" href="{% url 'liked_products' %}">
+                        <i class="bi bi-bookmark-heart-fill"></i>
+                    </a>
+
+                    <a class="nav-icon position-relative text-decoration-none" href="{% url 'logout_page' %}">
+                        <i class="bi bi-door-closed-fill"></i>
+                    </a>
+                {% else %}
+                    <a class="nav-icon position-relative text-decoration-none" href="{% url 'register_page' %}">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
