@@ -1,0 +1,25 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}محصولات پسندیده شده{% endblock %}
+
+{% block body %}
+    <br>
+    {% if liked_products %}
+        {% for products in liked_products %}
+            <div class="container">
+                <div class="card" dir="rtl">
+                    <h5 class="card-header">{{ products.product.title }}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ products.product.description|safe }}</h5>
+                        <a href="{{ products.product.get_absolute_url }}" class="btn btn-success">جزییات</a>
+                        <a href="{% url 'remove_liked_products' products.product.id %}" class="btn btn-danger">حذف</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    {% else %}
+        <p class="alert alert-danger container" dir="rtl">محصولی لایک نشده است.</p>
+    {% endif %}
+    <br>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}تماس با ما{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid bg-light py-5">
+        <div class="col-md-6 m-auto text-center">
+            <h1 class="h1 font">تماس با ما</h1>
+            <p class="font">.می توانید نظرات، انتقادات و پیشنهادات خود را با ما به اشتراک بگذارید <br>.پیام هایتان در
+                اسرع وقت توسط ادمین بررسی می گردد</p>
+        </div>
+    </div>
+
+    <div class="container py-5" dir="rtl">
+        <div class="row py-5">
+            <form class="col-md-9 m-auto" method="post" role="form" action="{% url 'contact_us_page' %}">
+                <div class="row">
+                    {% csrf_token %}
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="font">نام:</label>
+                        {{ form.full_name }}
+                    </div>
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="font">ایمیل:</label>
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="font">موضوع پیام:</label>
+                    {{ form.title }}
+                </div>
+                <div class="mb-3">
+                    <label class="font">متن پیام:</label>
+                    {{ form.media }}
+                    {{ form.message|safe }}
+                </div>
+                {% if request.user.is_authenticated %}
+                    <div class="row">
+                        <div class="col text-end mt-2">
+                            <button type="submit" class="btn btn-success btn-lg px-3">ارسال</button>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="font">برای ثبت پیام خود ابتدا باید <a href="{% url 'register_page' %}" class="font">ثبت
+                        نام</a> کنید.</p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

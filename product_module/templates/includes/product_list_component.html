@@ -1,0 +1,26 @@
+{% load poll_extras %}
+
+<div class="col-md-4">
+    <div class="card mb-4 product-wap rounded-0">
+        <div class="card rounded-0">
+            {% if product.image %}
+                <img class="card-img rounded-0 img-fluid img-size" src="{{ product.image.url }}" alt="سوغات سرای نجفی">
+            {% endif %}
+            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                <ul class="list-unstyled">
+                    <li><a class="btn btn-success text-white mt-2" href="{{ product.get_absolute_url }}">
+                        <i class="far fa-eye"></i></a></li>
+                    <br>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'like_product' product.id %}" class="btn btn-success text-white">
+                            <i class="far fa-heart"></i></a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <a href="{{ product.get_absolute_url }}" class="product-title">{{ product.title }}</a>
+            <p class="text-center mb-0">{{ product.price|three_digits_currency }}</p>
+        </div>
+    </div>
+</div>

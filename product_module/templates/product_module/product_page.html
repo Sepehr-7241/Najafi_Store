@@ -1,0 +1,76 @@
+{% extends 'shared/_layout.html' %}
+{% load render_partial %}
+
+{% block title %}محصولات{% endblock %}
+
+{% block body %}
+    <body>
+    {% for message in messages %}
+        <div dir="rtl" class="btn-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-9">
+
+                <form action="{% url 'product_page' %}" method="get" class="modal-content modal-body border-0 p-0">
+                    <div class="input-group mb-2">
+                        {{ product_filter }}
+                        <button type="submit" class="input-group-text bg-success text-light">
+                            <i class="fa fa-fw fa-search text-white"></i>
+                        </button>
+                    </div>
+                </form>
+
+
+                <form method="get" action="{% url 'product_page' %}" class="modal-content modal-body border-0 p-0">
+                    <select name="sort" id="sort" onchange="this.form.submit()">
+                        <option value="asc" {% if request.GET.sort == 'asc' %}selected{% endif %}>کمترین قیمت
+                        </option>
+                        <option value="desc" {% if request.GET.sort == 'desc' %}selected{% endif %}>بیشترین قیمت
+                        </option>
+                    </select>
+                </form>
+                <br>
+
+                {% if products %}
+                    <div class="row">
+                        {% for product in products %}
+                            {% include 'includes/product_list_component.html' with product=product %}
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="alert alert-warning" dir="rtl">محصولی یافت نشد.</p>
+                {% endif %}
+
+
+                <div class="row">
+                    <ul class="pagination pagination-lg justify-content-end">
+                        {% if products.has_previous %}
+                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0"
+                               href="?page={{ products.previous_page_number }}">قبلی</a>
+                        {% endif %}
+
+                        {% for page in products.paginator.page_range %}
+                            <li class="page-item disabled">
+                                <a class="page-link {% if products.number == page %}active{% endif %} rounded-0 mr-3 shadow-sm border-top-0 border-left-0"
+                                   href="?page={{ page }}"
+                                   tabindex="-1">{{ page }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {% if products.has_next %}
+                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0"
+                               href="?page={{ products.next_page_number }}">بعدی</a>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+            {% render_partial 'product_module.views.product_category_component' %}
+        </div>
+    </div>
+    </body>
+{% endblock %}

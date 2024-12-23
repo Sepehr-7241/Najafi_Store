@@ -1,0 +1,11 @@
+<div class="col-lg-3">
+    <h1 class="h2 pb-4">دسته بندی</h1>
+    {% for category in categories %}
+        <ul class="templatemo-accordion">
+            <a class="collapsed d-flex justify-content-between h3 text-decoration-none"
+               href="{% url 'category_filter_page' category_slug=category.url_title %}">
+                {{ category.title }}
+            </a>
+        </ul>
+    {% endfor %}
+</div>

@@ -1,0 +1,45 @@
+{% extends 'shared/_layout.html' %}
+{% load poll_extras %}
+
+{% block title %}جزییات محصول{% endblock %}
+
+{% block body %}
+    <section class="bg-light">
+        <div class="container pb-5">
+            <div class="row">
+                <div class="col-lg-5 mt-5">
+                    <div class="card mb-3">
+                        <img class="card-img img-fluid" src="{{ product.image.url }}" alt="سوغات سرای نجفی"
+                             id="product-detail">
+                    </div>
+                </div>
+
+                <div class="col-lg-7 mt-5" dir="rtl">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="h1 text-success">{{ product.title }}</h1>
+                            <p class="h3 py-2 font">{{ product.price|three_digits_currency }}</p>
+                            <h6>توضیحات :</h6>
+                            <h6>معرفی محصول :</h6>
+                            <p>{{ product.description|safe }}</p>
+                            {% if request.user.is_authenticated %}
+                                <form action="{% url 'cart_add' product.id %}" method="post">
+                                    {% csrf_token %}
+
+                                    {{ order_form.as_p }}
+
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        افزودن
+                                        به سبد خرید
+                                    </button>
+                                </form>
+                            {% else %}
+                                <p>برای سفارش کالا ابتدا باید <a href="{% url 'register_page' %}">وارد</a> حساب کاربری خود شوید.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
